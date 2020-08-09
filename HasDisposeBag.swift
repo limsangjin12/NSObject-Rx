@@ -38,6 +38,14 @@ extension HasDisposeBag {
             }
         }
     }
+
+    func resetDisposeBag() {
+        synchronizedBag {
+            objc_removeAssociatedObjects(disposeBag)
+            let disposeBag = DisposeBag()
+            objc_setAssociatedObject(self, &disposeBagContext, disposeBag, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+        }
+    }
 }
 
 
